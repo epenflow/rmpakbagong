@@ -6,31 +6,46 @@ const CartProductWrapper = styled.div`
 	position: fixed;
 	left: 50%;
 	transform: translateX(-50%);
-	padding: 0.5rem;
 	background-color: white;
 	color: black;
-	overflow-y: scroll;
-	section:nth-of-type(1) {
+	overflow: auto;
+	section:first-of-type {
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
+		margin: 2rem;
 	}
-	section {
-		margin: 1rem;
+	section:last-of-type {
+		margin-bottom: 10rem;
+	}
+`;
+type TCartItem = {
+	img: string;
+};
+export const CartItem = styled.section<TCartItem>`
+	display: flex;
+	flex-direction: column;
+	margin: 1rem;
+	div {
 		display: flex;
-		flex-direction: column;
-		div:nth-of-type(1) {
-			height: 5rem;
+		flex-flow: row nowrap;
+		div:first-of-type {
+			flex: 2;
+			height: 10rem;
+			background-image: url(${(props) => props.img});
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
 			background-color: yellow;
 		}
-		div:nth-of-type(2) {
+		div:last-of-type {
+			flex: 1;
 			display: flex;
-			flex-flow: row wrap;
-			align-items: center;
-			justify-content: center;
-			gap: 2rem;
+			gap: 0.5rem;
+			button {
+				flex: 1;
+			}
 		}
 	}
 `;
-
 export default CartProductWrapper;

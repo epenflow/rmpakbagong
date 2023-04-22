@@ -1,5 +1,5 @@
 import React from 'react';
-import CartProductWrapper from './styles/cartproduct-style';
+import CartProductWrapper, { CartItem } from './styles/cartproduct-style';
 import { IFComp } from '../../components/IFEComp';
 import useDom from '../../../utils/contexts/dom-provider';
 
@@ -23,16 +23,19 @@ const CartProduct: React.FC<ICartProduct> = (): JSX.Element => {
 						<button>remove all</button>
 						<button>checkout</button>
 					</section>
-					{Array.from({ length: 20 }).map((_, index) => (
-						<section key={index}>
+					{Array.from({ length: 50 }).map((_, index) => (
+						<CartItem
+							key={index}
+							img='http://unsplash.it/1920/1080?random'>
 							<h1>{index}</h1>
-							<div />
 							<div>
-								<button>remove items</button>
-								<button>add</button>
-								<button>remove item</button>
+								<div />
+								<div>
+									<button>+</button>
+									<button>-</button>
+								</div>
 							</div>
-						</section>
+						</CartItem>
 					))}
 				</CartProductWrapper>
 			}

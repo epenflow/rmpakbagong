@@ -23,7 +23,7 @@ export const Product: React.FC = (): JSX.Element => {
 			{Array.from({ length: 10 }).map((_, index) => (
 				<CardProduct
 					key={index}
-					width='310px'
+					width='280px'
 					isText={isText}
 					img='http://unsplash.it/1920/1080?random'>
 					<div />
