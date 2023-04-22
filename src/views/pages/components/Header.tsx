@@ -5,15 +5,14 @@ import DropDownMenuWrapper from './styles/dropdown-style';
 import useDom from '../../../utils/contexts/dom-provider';
 const Header = () => {
 	const [isActive, setActive] = React.useState<boolean>(false);
-	const { isDropDownMenu, setDropDownMenu } = useDom();
-	const handleClick = () => {
-		setActive((prev) => !prev);
-	};
+	const { isDropDownMenu, setDropDownMenu, setCartProduct, isCartProduct } =
+		useDom();
+
 	const handleDropDownMenu = () => {
-		console.info(
-			'klik',
-			setDropDownMenu((prev) => !prev)
-		);
+		setDropDownMenu((prev) => !prev);
+	};
+	const handleCartProduct = () => {
+		setCartProduct((prev) => !prev);
 	};
 	return (
 		<HeaderWrapper title='header container'>
@@ -24,16 +23,15 @@ const Header = () => {
 				<CategoryButton
 					size={25}
 					handleClick={handleDropDownMenu}
-					state={isDropDownMenu}
 				/>
 				<CartButton
-					handleClick={handleClick}
+					handleClick={handleCartProduct}
 					size={25}
 					total={40}
 					iconColor={'black'}
 					totalColor='red'
 					textColor='white'
-					totalState={!isActive}
+					totalState={!isCartProduct}
 				/>
 			</section>
 		</HeaderWrapper>

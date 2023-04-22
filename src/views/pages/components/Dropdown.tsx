@@ -1,15 +1,13 @@
-import styled from '@emotion/styled';
-import { FC } from 'react';
+import React from 'react';
 import { IFComp } from '../../components/IFEComp';
 import DropDownMenuWrapper from './styles/dropdown-style';
+import useDom from '../../../utils/contexts/dom-provider';
 
-interface IDropDownMenu {
-	state: boolean;
-}
-const DropDownMenu: FC<IDropDownMenu> = ({ state = false }): JSX.Element => {
+const DropDownMenu: React.FC = (): JSX.Element => {
+	const { isDropDownMenu } = useDom();
 	return (
 		<IFComp
-			state={state}
+			state={isDropDownMenu}
 			children={
 				<DropDownMenuWrapper>
 					<button>makanan</button>

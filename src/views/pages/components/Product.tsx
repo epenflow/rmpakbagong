@@ -9,7 +9,7 @@ const idrFormat = new Intl.NumberFormat('id-ID', {
 const setPrice = (price: number) => {
 	return idrFormat.format(price);
 };
-export const Product = () => {
+export const Product: React.FC = (): JSX.Element => {
 	const [isCart, setCart] = React.useState<boolean>(false);
 	const [isText, setText] = React.useState<boolean>(false);
 	const handleClick = (): void => {

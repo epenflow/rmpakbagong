@@ -5,8 +5,9 @@ import useDevice from '../../../utils/hooks/useDevice';
 import HaversineLocation, { ICoords } from '../../../utils/userLocation';
 import DropDownMenu from '../components/Dropdown';
 import useDom from '../../../utils/contexts/dom-provider';
+import CartProduct from '../components/CartProduct';
 
-export const MainLayouts = () => {
+export const MainLayouts: React.FC = (): JSX.Element => {
 	const { isAndroid, isIOS } = useDevice();
 	const { isDropDownMenu } = useDom();
 	const [getUserLocations, setUserLocations] = React.useState<ICoords>({
@@ -44,7 +45,8 @@ export const MainLayouts = () => {
 	) : (
 		<React.Fragment>
 			<Header />
-			<DropDownMenu state={isDropDownMenu} />
+			<CartProduct />
+			<DropDownMenu />
 			<Product />
 		</React.Fragment>
 	);

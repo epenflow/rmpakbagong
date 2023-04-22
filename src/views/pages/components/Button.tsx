@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { FC, Fragment } from 'react';
+import React from 'react';
+import { ShoppingButtonWrapper, TotalWrapper } from './styles/button-style';
 import {
 	MdAddShoppingCart,
 	MdShoppingCart,
@@ -9,8 +10,9 @@ import {
 	MdFilterListOff,
 } from 'react-icons/md';
 import { IFComp, IFEComp } from '../../components/IFEComp';
-import { motion } from 'framer-motion';
-type CartButtonProps = {
+import useDom from '../../../utils/contexts/dom-provider';
+
+export type CartButtonProps = {
 	handleClick?: () => void;
 	size?: number | string;
 	total?: string | number;
@@ -19,17 +21,8 @@ type CartButtonProps = {
 	textColor?: string;
 	totalState?: boolean;
 };
-const TotalWrapper = styled(motion.div)<CartButtonProps>`
-	background-color: ${({ totalColor }) =>
-		totalColor ? totalColor : 'white'};
-	color: ${({ textColor }) => (textColor ? textColor : 'black')};
-	padding: 0.25rem;
-	border-radius: 100%;
-	position: absolute;
-	font-size: 12px;
-	border: 2px solid transparent;
-`;
-const CartButton: FC<CartButtonProps> = ({
+
+const CartButton: React.FC<CartButtonProps> = ({
 	handleClick,
 	size,
 	total,
@@ -69,21 +62,26 @@ const CartButton: FC<CartButtonProps> = ({
 type CategoryButtonProps = {
 	handleClick?: () => void;
 	size?: number | string;
-	state?: boolean;
 	iconColor?: string;
 };
-const CategoryButton: FC<CategoryButtonProps> = ({
+const CategoryButton: React.FC<CategoryButtonProps> = ({
 	handleClick,
 	size,
-	state = false,
 	iconColor,
 }) => {
+	const { isCartProduct, setDropDownMenu } = useDom();
+	React.useEffect(() => {
+		if (isCartProduct) {
+			setDropDownMenu((prev) => (prev = false));
+		}
+	}, [isCartProduct]);
 	return (
 		<button
 			onClick={handleClick}
-			title='menu category'>
+			title='menu category'
+			disabled={isCartProduct}>
 			<IFEComp
-				state={state}
+				state={isCartProduct}
 				firstChild={
 					<MdFilterListOff
 						size={size}
@@ -105,29 +103,8 @@ type ShoppingButtonProps = {
 	handleClick?: () => void;
 	isCart?: boolean;
 };
-const ShoppingButtonWrapper = styled.section`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	margin: 0 0.25rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.25rem;
-	button {
-		width: 100%;
-		height: 42px;
-		border: 2px solid black;
-		transition: all 0.5s linear;
-		padding: 0 0.5rem;
-		background-color: white;
-		&:hover {
-			transform: translate(-1%, -1%);
-			filter: drop-shadow(5px 5px black);
-		}
-	}
-`;
-const ShoppingButton: FC<ShoppingButtonProps> = ({
+
+const ShoppingButton: React.FC<ShoppingButtonProps> = ({
 	handleClick,
 	isCart = false,
 }) => {
@@ -136,14 +113,14 @@ const ShoppingButton: FC<ShoppingButtonProps> = ({
 			<IFEComp
 				state={isCart}
 				firstChild={
-					<Fragment>
+					<React.Fragment>
 						<button onClick={handleClick}>
 							<MdRemoveShoppingCart size={25} />
 						</button>
 						<button onClick={handleClick}>
 							<MdAddShoppingCart size={25} />
 						</button>
-					</Fragment>
+					</React.Fragment>
 				}
 				secondChild={
 					<button onClick={handleClick}>
