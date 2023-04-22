@@ -18,27 +18,27 @@ export const MainLayouts = () => {
 		latitude: -8.466573923064276,
 		longitude: 115.35061299320614,
 	};
-	// navigator.geolocation.getCurrentPosition(
-	// 	function (position: GeolocationPosition) {
-	// 		setUserLocations((prev) => ({
-	// 			...prev,
-	// 			latitude: position.coords.latitude,
-	// 			longitude: position.coords.longitude,
-	// 		}));
-	// 	}.bind(this),
-	// 	function (msg: GeolocationPositionError) {
-	// 		alert(`silahkan hidupkan gps`);
-	// 	}
-	// );
-	// const userLocations = new HaversineLocation(x, getUserLocations);
-	// if (userLocations.haversine() >= radius) {
-	// 	return (
-	// 		<h1>
-	// 			radius lokasi anda&nbsp;:&nbsp;
-	// 			{userLocations.toUnits(userLocations.haversine())}
-	// 		</h1>
-	// 	);
-	// }
+	navigator.geolocation.getCurrentPosition(
+		function (position: GeolocationPosition) {
+			setUserLocations((prev) => ({
+				...prev,
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude,
+			}));
+		}.bind(this),
+		function (msg: GeolocationPositionError) {
+			alert(`silahkan hidupkan gps`);
+		}
+	);
+	const userLocations = new HaversineLocation(x, getUserLocations);
+	if (userLocations.haversine() >= radius) {
+		return (
+			<h1>
+				radius lokasi anda&nbsp;:&nbsp;
+				{userLocations.toUnits(userLocations.haversine())}
+			</h1>
+		);
+	}
 	return !isAndroid && !isIOS ? (
 		<h1>silahkan buka di mobile</h1>
 	) : (
