@@ -1,10 +1,19 @@
 import React from 'react';
 import { CartButton, CategoryButton } from './Button';
 import HeaderWrapper from './styles/header-styles';
+import DropDownMenuWrapper from './styles/dropdown-style';
+import useDom from '../../../utils/contexts/dom-provider';
 const Header = () => {
 	const [isActive, setActive] = React.useState<boolean>(false);
+	const { isDropDownMenu, setDropDownMenu } = useDom();
 	const handleClick = () => {
 		setActive((prev) => !prev);
+	};
+	const handleDropDownMenu = () => {
+		console.info(
+			'klik',
+			setDropDownMenu((prev) => !prev)
+		);
 	};
 	return (
 		<HeaderWrapper title='header container'>
@@ -14,8 +23,8 @@ const Header = () => {
 			<section title='button section'>
 				<CategoryButton
 					size={25}
-					handleClick={handleClick}
-					state={isActive}
+					handleClick={handleDropDownMenu}
+					state={isDropDownMenu}
 				/>
 				<CartButton
 					handleClick={handleClick}

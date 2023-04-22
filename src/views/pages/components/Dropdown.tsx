@@ -1,46 +1,23 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
 import { IFComp } from '../../components/IFEComp';
+import DropDownMenuWrapper from './styles/dropdown-style';
 
-const DropDownMenuWrapper = styled.section`
-	width: 5rem;
-	height: 7.5rem;
-	background-color: white;
-	position: absolute;
-	left: 50%;
-	top: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column !important;
-	border: 2px solid black;
-	&:before {
-		content: '';
-		width: 1rem;
-		height: 1rem;
-		transform: rotate(45deg);
-		background-color: white;
-		position: absolute;
-		left: -20%;
-		top: -20%;
-		border: 2px solid black;
-	}
-	h6 {
-		text-transform: capitalize;
-	}
-`;
-const DropDownMenu: FC = ({ state = false }: { state?: boolean }) => {
+interface IDropDownMenu {
+	state: boolean;
+}
+const DropDownMenu: FC<IDropDownMenu> = ({ state = false }): JSX.Element => {
 	return (
 		<IFComp
 			state={state}
 			children={
 				<DropDownMenuWrapper>
-					<h6>makanan</h6>
-					<h6>minuman</h6>
+					<button>makanan</button>
+					<button>minuman</button>
 				</DropDownMenuWrapper>
 			}
 		/>
 	);
 };
 
-export { DropDownMenu };
+export default DropDownMenu;

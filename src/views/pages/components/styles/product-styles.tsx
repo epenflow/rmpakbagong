@@ -1,26 +1,38 @@
 import styled from '@emotion/styled';
-const ProductWrapper = styled.div`
+type TCardProduct = {
+	img: string;
+	width: string;
+	isText: boolean;
+};
+const ProductWrapper = styled.main`
 	display: flex;
 	flex-flow: row wrap;
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	margin-top: 100px;
+	margin-top: 60px;
 `;
-type TCardProduct = {
-	img: string;
-};
 export const CardProduct = styled.section<TCardProduct>`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 320px;
+	width: ${(props) => props.width};
 	gap: 0.5rem;
 	margin: 0.5rem;
 	padding: 0.5rem;
-	background-color: #ff0000;
-
+	border: 2px solid black;
+	background-color: white;
+	transition: all 1s linear;
+	&:hover {
+		filter: drop-shadow(5px 5px 0 black);
+	}
+	div:nth-of-type(1) {
+		width: 280px;
+		height: 280px;
+		background-image: url(${(props) => props.img});
+		background-size: cover;
+	}
 	h1 {
 		text-transform: capitalize;
 		font-size: 20px;
@@ -34,11 +46,15 @@ export const CardProduct = styled.section<TCardProduct>`
 		text-align: start;
 		font-weight: 500;
 	}
-	div:nth-of-type(1) {
-		width: 280px;
-		height: 280px;
-		background-image: url(${(props) => props.img});
-		background-size: cover;
+	p {
+		text-align: justify;
+		overflow: hidden;
+		white-space: ${(props) => (props.isText ? 'normal' : 'nowrap')};
+		text-overflow: ${(props) => (props.isText ? 'unset' : 'ellipsis')};
+		width: ${(props) => props.width};
+		&:hover {
+			cursor: pointer;
+		}
 	}
 `;
 export default ProductWrapper;

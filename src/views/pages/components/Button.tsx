@@ -42,8 +42,11 @@ const CartButton: FC<CartButtonProps> = ({
 		<button
 			onClick={handleClick}
 			style={{ transition: 'all 1s linear' }}
-			title="shopping cart">
-			<MdShoppingCart size={size} color={iconColor} />
+			title='shopping cart'>
+			<MdShoppingCart
+				size={size}
+				color={iconColor}
+			/>
 			<IFComp
 				state={!totalState}
 				children={
@@ -76,11 +79,23 @@ const CategoryButton: FC<CategoryButtonProps> = ({
 	iconColor,
 }) => {
 	return (
-		<button onClick={handleClick} title="menu category">
+		<button
+			onClick={handleClick}
+			title='menu category'>
 			<IFEComp
 				state={state}
-				firstChild={<MdFilterListOff size={size} color={iconColor} />}
-				secondChild={<MdFilterList size={size} color={iconColor} />}
+				firstChild={
+					<MdFilterListOff
+						size={size}
+						color={iconColor}
+					/>
+				}
+				secondChild={
+					<MdFilterList
+						size={size}
+						color={iconColor}
+					/>
+				}
 			/>
 		</button>
 	);
@@ -106,7 +121,6 @@ const ShoppingButtonWrapper = styled.section`
 		transition: all 0.5s linear;
 		padding: 0 0.5rem;
 		background-color: white;
-		border-radius: 0.5rem;
 		&:hover {
 			transform: translate(-1%, -1%);
 			filter: drop-shadow(5px 5px black);

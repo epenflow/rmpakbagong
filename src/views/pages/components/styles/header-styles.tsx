@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 const HeaderWrapper = styled.header`
 	position: fixed;
+	display: flex;
 	top: 0;
 	left: 0;
 	height: 60px;
 	width: 100%;
-
+	z-index: 9999;
 	padding: 0.25rem 2.5rem;
 	box-sizing: border-box;
-	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	overflow: hidden !important;
