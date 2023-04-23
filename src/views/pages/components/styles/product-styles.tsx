@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 type TCardProduct = {
-	img: string;
 	width: string;
-	isText: boolean;
 };
 const ProductWrapper = styled.main`
 	display: flex;
@@ -13,12 +11,7 @@ const ProductWrapper = styled.main`
 	margin-top: 60px;
 `;
 export const CardProduct = styled.section<TCardProduct>`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	width: ${(props) => props.width};
-	gap: 0.5rem;
 	margin: 0.5rem;
 	padding: 0.5rem;
 	border: 2px solid black;
@@ -27,7 +20,19 @@ export const CardProduct = styled.section<TCardProduct>`
 	&:hover {
 		filter: drop-shadow(5px 5px 0 black);
 	}
-	div:nth-of-type(1) {
+`;
+type TProductItemWrapper = {
+	img: string;
+	isText: boolean;
+	width: string;
+};
+export const ProductItemWrapper = styled.div<TProductItemWrapper>`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	div:first-of-type {
 		width: 280px;
 		height: 280px;
 		background-image: url(${(props) => props.img});
@@ -52,6 +57,7 @@ export const CardProduct = styled.section<TCardProduct>`
 		white-space: ${(props) => (props.isText ? 'normal' : 'nowrap')};
 		text-overflow: ${(props) => (props.isText ? 'unset' : 'ellipsis')};
 		width: ${(props) => props.width};
+
 		&:hover {
 			cursor: pointer;
 		}

@@ -6,6 +6,7 @@ import HaversineLocation, { ICoords } from '../../../utils/userLocation';
 import DropDownMenu from '../components/Dropdown';
 import useDom from '../../../utils/contexts/dom-provider';
 import CartProduct from '../components/CartProduct';
+import axios, { AxiosResponse } from 'axios';
 
 export const MainLayouts: React.FC = (): JSX.Element => {
 	const { isAndroid, isIOS } = useDevice();
@@ -14,11 +15,13 @@ export const MainLayouts: React.FC = (): JSX.Element => {
 		latitude: 0,
 		longitude: 0,
 	});
+
 	const radius = 0.02;
 	const x: ICoords = {
 		latitude: -8.466573923064276,
 		longitude: 115.35061299320614,
 	};
+
 	navigator.geolocation.getCurrentPosition(
 		function (position: GeolocationPosition) {
 			setUserLocations((prev) => ({
