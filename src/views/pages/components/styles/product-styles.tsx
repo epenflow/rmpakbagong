@@ -32,12 +32,23 @@ export const ProductItemWrapper = styled.div<TProductItemWrapper>`
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	div:first-of-type {
+	/* div:first-of-type {
 		width: 280px;
 		height: 280px;
 		background-image: url(${(props) => props.img});
 		background-size: cover;
+	} */
+	div:first-of-type {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		img {
+			object-fit: contain;
+		}
 	}
+
 	h1 {
 		text-transform: capitalize;
 		font-size: 20px;

@@ -11,38 +11,38 @@ import axios, { AxiosResponse } from 'axios';
 export const MainLayouts: React.FC = (): JSX.Element => {
 	const { isAndroid, isIOS } = useDevice();
 	const { isDropDownMenu } = useDom();
-	const [getUserLocations, setUserLocations] = React.useState<ICoords>({
-		latitude: 0,
-		longitude: 0,
-	});
+	// const [getUserLocations, setUserLocations] = React.useState<ICoords>({
+	// 	latitude: 0,
+	// 	longitude: 0,
+	// });
 
-	const radius = 0.02;
-	const x: ICoords = {
-		latitude: -8.466573923064276,
-		longitude: 115.35061299320614,
-	};
+	// const radius = 0.02;
+	// const x: ICoords = {
+	// 	latitude: -8.466573923064276,
+	// 	longitude: 115.35061299320614,
+	// };
 
-	navigator.geolocation.getCurrentPosition(
-		function (position: GeolocationPosition) {
-			setUserLocations((prev) => ({
-				...prev,
-				latitude: position.coords.latitude,
-				longitude: position.coords.longitude,
-			}));
-		}.bind(this),
-		function (msg: GeolocationPositionError) {
-			alert(`silahkan hidupkan gps`);
-		}
-	);
-	const userLocations = new HaversineLocation(x, getUserLocations);
-	if (userLocations.haversine() >= radius) {
-		return (
-			<h1>
-				radius lokasi anda&nbsp;:&nbsp;
-				{userLocations.toUnits(userLocations.haversine())}
-			</h1>
-		);
-	}
+	// navigator.geolocation.getCurrentPosition(
+	// 	function (position: GeolocationPosition) {
+	// 		setUserLocations((prev) => ({
+	// 			...prev,
+	// 			latitude: position.coords.latitude,
+	// 			longitude: position.coords.longitude,
+	// 		}));
+	// 	}.bind(this),
+	// 	function (msg: GeolocationPositionError) {
+	// 		alert(`silahkan hidupkan gps`);
+	// 	}
+	// );
+	// const userLocations = new HaversineLocation(x, getUserLocations);
+	// if (userLocations.haversine() >= radius) {
+	// 	return (
+	// 		<h1>
+	// 			radius lokasi anda&nbsp;:&nbsp;
+	// 			{userLocations.toUnits(userLocations.haversine())}
+	// 		</h1>
+	// 	);
+	// }
 	return !isAndroid && !isIOS ? (
 		<h1>silahkan buka di mobile</h1>
 	) : (

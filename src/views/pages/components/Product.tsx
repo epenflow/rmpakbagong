@@ -1,14 +1,9 @@
-import React from 'react';
-import { ShoppingButton } from './Button';
-import ProductWrapper, {
-	CardProduct,
-	ProductItemWrapper,
-} from './styles/product-styles';
+import React, { lazy } from 'react';
+import ProductWrapper, { CardProduct } from './styles/product-styles';
+import { faker } from '@faker-js/faker';
 import axios, { AxiosResponse } from 'axios';
-const idrFormat = new Intl.NumberFormat('id-ID', {
-	style: 'currency',
-	currency: 'idr',
-});
+// import ProductItems from './ProductItems';
+const ProductItems = lazy(() => import('./ProductItems'));
 interface IFood {
 	description: string;
 	dish: string;
@@ -17,87 +12,55 @@ interface IFood {
 	measurement: string;
 	uid: string;
 }
-const setPrice = (price: number) => {
-	return idrFormat.format(price);
-};
-const ProductItems = ({ item }: { item: IFood }) => {
-	const [isCart, setCart] = React.useState<boolean>(false);
-	const [isText, setText] = React.useState<boolean>(false);
-	const handleText = () => {
-		setText((prev) => !prev);
-	};
-	const handleClick = () => {
-		setCart((prev) => !prev);
-	};
+export interface NewIFood {
+	id: number;
+	image: string;
+	description: string;
+	dish: string;
+}
 
-	return (
-		<React.Fragment>
-			<ProductItemWrapper
-				img='http://unsplash.it/1920/1080?random'
-				isText={isText}
-				width='100%'>
-				<div />
-				<h1>{item.dish}</h1>
-				<h2>{setPrice(item.id)}</h2>
-				<p onClick={handleText}>{item.description}</p>
-				<ShoppingButton
-					handleClick={handleClick}
-					isCart={isCart}
-				/>
-			</ProductItemWrapper>
-		</React.Fragment>
-	);
-};
-export const Product: React.FC = (): JSX.Element => {
+export const Product = () => {
 	const [getFood, setFood] = React.useState<IFood[]>([]);
-	const fetchFood = async () => {
-		try {
-			const data: AxiosResponse<any, any> = await axios.get(
-				'https://random-data-api.com/api/food/random_food?size=20'
-			);
-			setFood(data.data);
-		} catch (er) {
-			console.info(er);
-		}
-	};
+	const [people, setPeople] = React.useState<NewIFood[]>([]);
+	const productWrapperRef = React.useRef<HTMLElement>(null);
+	// const fetchFood = async () => {
+	// 	try {
+	// 		const data: AxiosResponse<any, any> = await axios.get(
+	// 			'https://random-data-api.com/api/food/random_food?size=20'
+	// 		);
+	// 		setFood(data.data);
+	// 	} catch (er) {
+	// 		console.info(er);
+	// 	}
+	// };
+	// React.useEffect(() => {
+	// 	fetchFood();
+	// 	console.info(getFood);
+	// }, []);
 	React.useEffect(() => {
-		fetchFood();
+		setPeople(
+			[...Array(25).keys()].map((key) => {
+				return {
+					id: key,
+					image: faker.image.imageUrl(1920, 1080, 'food', true),
+					description: faker.lorem.paragraph(),
+					dish: faker.name.firstName(),
+				};
+			})
+		);
 	}, []);
-
 	return (
-		<ProductWrapper>
-			{getFood.map((item, index) => (
+		<ProductWrapper ref={productWrapperRef}>
+			{people.map((item, index) => (
 				<CardProduct
-					key={index}
-					width='280px'>
-					<ProductItems item={item} />
+					width='280px'
+					key={index}>
+					<React.Suspense fallback={<h1>loading...</h1>}>
+						<ProductItems item={item} />
+					</React.Suspense>
 				</CardProduct>
 			))}
 		</ProductWrapper>
 	);
 };
 export default Product;
-{
-	/* {Array.from({ length: 10 }).map((_, index) => (
-				<CardProduct
-					key={index}
-					width='280px'
-					isText={isText}
-					img='http://unsplash.it/1920/1080?random'>
-					<div />
-					<h1>test</h1>
-					<h2>{setPrice(100000000)}</h2>
-					<p onClick={handleText}>
-						Lorem ipsum dolor sit amet consectetur, adipisicing
-						elit. Tenetur ut, temporibus voluptates nihil deserunt
-						ipsa eaque delectus labore neque illo tempore
-						exercitationem itaque dolorem cum molestias omnis hic!
-						Enim, error?
-					</p>
-					<ShoppingButton
-						handleClick={handleClick}
-						isCart={isCart}
-					/>
-				</CardProduct>
-			))} */
-}
