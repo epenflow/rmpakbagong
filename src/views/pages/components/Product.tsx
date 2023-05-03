@@ -20,8 +20,8 @@ export interface NewIFood {
 }
 
 export const Product = () => {
-	const [getFood, setFood] = React.useState<IFood[]>([]);
-	const [people, setPeople] = React.useState<NewIFood[]>([]);
+	// const [getFood, setFood] = React.useState<IFood[]>([]);
+	const [food, setFood] = React.useState<NewIFood[]>([]);
 	const productWrapperRef = React.useRef<HTMLElement>(null);
 	// const fetchFood = async () => {
 	// 	try {
@@ -38,7 +38,7 @@ export const Product = () => {
 	// 	console.info(getFood);
 	// }, []);
 	React.useEffect(() => {
-		setPeople(
+		setFood(
 			[...Array(25).keys()].map((key) => {
 				return {
 					id: key,
@@ -51,7 +51,7 @@ export const Product = () => {
 	}, []);
 	return (
 		<ProductWrapper ref={productWrapperRef}>
-			{people.map((item, index) => (
+			{food.map((item, index) => (
 				<CardProduct
 					width='280px'
 					key={index}>
